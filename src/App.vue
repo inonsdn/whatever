@@ -15,6 +15,10 @@ const routerPaths = [
     {
         name: 'Whatever',
         path: '/whatever'
+    },
+    {
+        name: 'Notes',
+        path: '/notes'
     }
 ]
 

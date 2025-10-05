@@ -4,6 +4,7 @@
         id: number
         name: string
         description: string
+        onClick: () => {}
     }
 
     defineProps<{
@@ -14,14 +15,14 @@
 
 <template>
     <div class="div-item">
-        <div class="item">
+        <div class="item" onclick="item.onClick">
             <h>{{item.name}}</h>
             <p>{{item.description}}</p>
         </div>
-        <div class="item">
+        <!-- <div class="item">
             <button>Edit</button>
             <button>Del</button>
-        </div>
+        </div> -->
     </div>
 </template>
 
