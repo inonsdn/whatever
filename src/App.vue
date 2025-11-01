@@ -30,7 +30,6 @@ const routerPaths = [
         <NavBar :routers=routerPaths></NavBar>
     </div>
     </header>
-
     <RouterView />
 </template>
 

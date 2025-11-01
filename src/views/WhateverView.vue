@@ -1,16 +1,3 @@
-<script setup lang="ts">
-import ListItem from '@/components/ListItem.vue';
-
-const items = [
-    {
-        id: 1,
-        name: 'test',
-        description: 'this is test item'
-    }
-]
-
-</script>
-
 <template>
     <main>
         <ListItem
@@ -20,6 +7,19 @@ const items = [
         />
     </main>
 </template>
+<script setup lang="ts">
+    import ListItem from '@/components/ListItem.vue';
+
+    const items = [
+        {
+            id: 1,
+            name: 'test',
+            description: 'this is test item'
+        }
+    ]
+
+</script>
+
 
 <style>
 </style>

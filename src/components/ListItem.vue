@@ -1,30 +1,25 @@
+<template>
+    <div class="div-item">
+        <div class="item" @click="emit('click_cb')">
+            <h>{{item.name}}</h>
+            <p>{{item.description}}</p>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 
-    interface ListItemObj {
-        id: number
-        name: string
-        description: string
-        onClick: () => {}
-    }
+    import type { ListItemObj } from '@/types/ListItemInterface'
 
     defineProps<{
         item: ListItemObj
     }>()
 
-</script>
+    const emit = defineEmits<{ 
+        (e: 'click_cb'): void
+    }>()
 
-<template>
-    <div class="div-item">
-        <div class="item" onclick="item.onClick">
-            <h>{{item.name}}</h>
-            <p>{{item.description}}</p>
-        </div>
-        <!-- <div class="item">
-            <button>Edit</button>
-            <button>Del</button>
-        </div> -->
-    </div>
-</template>
+</script>
 
 <style scoped>
 div {
