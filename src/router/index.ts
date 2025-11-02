@@ -28,6 +28,11 @@ const router = createRouter({
             component: () => import('../views/NotesView.vue'),
         },
         {
+            path: '/todoList',
+            name: 'todoList',
+            component: () => import('../pages/TodoListPage.vue'),
+        },
+        {
             path: '/notes/:id',
             name: 'notess',
             component: () => import('../views/EditNotesView.vue'),

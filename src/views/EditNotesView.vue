@@ -25,6 +25,7 @@
     onMounted(() => {
         const itemId = route.params.id
         data.id = itemId
+        // TODO: get data from api or database
     })
 
     watch(data, (newValue, oldValue) => {
