@@ -1,7 +1,8 @@
 <template>
     <TodoListView
         :values="items"
-        @onMarkDone_cb="onMarkDone_cb"/>
+        @on-mark-done_cb="onMarkDone_cb"
+        @on-mark-undone_cb="onMarkUndone_cb"/>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +48,11 @@ import { computed, onMounted, ref } from 'vue'
                 id: 5,
                 state: TODO_STATE_NEW,
                 text: 'Implement dialog for add todo item'
+            },
+            {
+                id: 6,
+                state: TODO_STATE_DONE,
+                text: 'Add toggle to done and undone todo'
             }
         ]
         for (const item of todoListItems) {
@@ -64,6 +70,19 @@ import { computed, onMounted, ref } from 'vue'
             [itemId]: {
                 ...oldValue,
                 state: TODO_STATE_DONE
+            }
+            
+        }
+    }
+
+    function onMarkUndone_cb (itemId: number) {
+        console.log('===== got event', itemId)
+        const oldValue = data.value.todoIdToDataObj[itemId]
+        data.value.todoIdToDataObj = {
+            ...data.value.todoIdToDataObj,
+            [itemId]: {
+                ...oldValue,
+                state: TODO_STATE_NEW
             }
             
         }

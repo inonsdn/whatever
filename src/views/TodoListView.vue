@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="todoPanel">
+            <input class="inputFilter" v-bind="data.filterTodoText"/>
             <button>Add</button>
             <button>Remove</button>
         </div>
@@ -9,7 +10,8 @@
             :id="item.id"
             :text="item.text"
             :state="item.state"
-            @markDone_cb="markDoneClicked"/>
+            @mark-done_cb="markDoneClicked"
+            @mark-undone_cb="markUndoneClicked"/>
     </div>
 </template>
 
@@ -17,7 +19,7 @@
 
     import TodoItem from '@/components/TodoItem.vue';
     import type {TodoListItem} from '@/types/TodoListInterface'
-    import { toRefs, watch } from 'vue';
+    import { ref, toRefs, watch } from 'vue';
 
     // define props for this view
     const props = defineProps<{
@@ -26,6 +28,11 @@
     }>()
 
     const { values } = toRefs(props)
+    const data = ref<{
+        filterTodoText: string
+    }>({
+        filterTodoText: ''
+    })
 
     watch(values, (newVal, oldVal) => {
         console.log(newVal, oldVal)
@@ -33,11 +40,17 @@
 
     const emit = defineEmits<{
         (e: 'onMarkDone_cb', itemId: number): void
+        (e: 'onMarkUndone_cb', itemId: number): void
     }>()
 
     function markDoneClicked (itemId: number) {
         console.log('Mark done clicked of item ', itemId)
         emit('onMarkDone_cb', itemId)
+    }
+
+    function markUndoneClicked (itemId: number) {
+        console.log('Mark done clicked of item ', itemId)
+        emit('onMarkUndone_cb', itemId)
     }
 
 </script>
@@ -47,6 +60,9 @@
 .todoPanel {
     display: flex;
     justify-content: right;
+
+}
+.inputFilter {
 
 }
 button {
