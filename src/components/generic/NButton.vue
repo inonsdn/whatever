@@ -16,10 +16,6 @@
 
 <style scoped>
 .n-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
     color: var(--text-dark-primary);
     height: inherit;
     margin-top: 0.3em;
@@ -31,7 +27,7 @@
 }
 
 .n-button:hover {
-    background-color: var(--primary);
+    background-color: var(--secondary);
     color: var(--text-light-primary);
 }
 </style>

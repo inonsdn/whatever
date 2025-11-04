@@ -24,7 +24,7 @@
 }
 
 .list-item:hover {
-    background-color: var(--primary);
+    background-color: var(--secondary);
     color: var(--text-light-primary);
 }
 </style>

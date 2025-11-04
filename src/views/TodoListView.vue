@@ -5,8 +5,8 @@
                 <input class="inputFilter" type="text" v-model="data.filterTodoText" placeholder="Filter" @input="onFilterType"/>
             </div>
             <div>
-                <button>Add</button>
-                <button>Remove</button>
+                <NButton>Add</NButton>
+                <NButton>Remove</NButton>
             </div>
         </div>
         <TodoItem v-for="item in data.filteredTodoItems"
@@ -24,6 +24,7 @@
     import TodoItem from '@/components/TodoItem.vue';
     import type {TodoListItem} from '@/types/TodoListInterface'
     import { onMounted, ref, toRefs, watch } from 'vue';
+    import NButton from '@/components/generic/NButton.vue';
 
     // define props for this view
     const props = defineProps<{
