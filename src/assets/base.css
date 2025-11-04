@@ -30,6 +30,9 @@
   --primary: var(--finn);
   --secondary: var(--lilac);
   --thirdary: var(--lavender-light);
+
+  --text-light-primary: var(--platinum);
+  --text-dark-primary: var(--eerie-black);
 }
 
 /* semantic color variables for this project */

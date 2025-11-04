@@ -8,7 +8,7 @@
     </main>
 </template>
 <script setup lang="ts">
-    import ListItem from '@/components/ListItem.vue';
+    import ListItem from '@/components/generic/ListItem.vue';
 
     const items = [
         {

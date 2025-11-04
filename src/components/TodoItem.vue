@@ -1,14 +1,20 @@
 <template>
-    <div class="todoItem">
+    <ListItem>
         <p class="todoText">{{ modifiedText }}</p>
-        <button @click="markDoneButtonClicked">{{ markButtonText }}</button>
-    </div>
+        <!-- <button @click="markDoneButtonClicked">{{ markButtonText }}</button> -->
+        <NButton
+            @click="markDoneButtonClicked">
+            {{ markButtonText }}
+        </NButton>
+    </ListItem>
 </template>
 
 <script setup lang="ts">
 
     import { computed, onMounted, ref, toRefs } from 'vue';
     import {TODO_STATE_NEW, TODO_STATE_DONE} from '@/types/TodoListInterface'
+    import ListItem from './generic/ListItem.vue';
+    import NButton from './generic/NButton.vue';
     
     // define props for this view
     const props = defineProps<{
@@ -61,26 +67,5 @@
 
 
 <style>
-.todoItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    background-color: var(--thirdary);
-    border-radius: 0.4em;
-    padding: 0.3em;
-    /* padding-left: 0.3em;
-    padding-right: 0.3em; */
-
-}
-
-.todoText {
-    /* margin-left: 0.3em;
-    margin-right: 0.3em; */
-    /* margin: 0.3em;
-    background-color: var(--thirdary); */
-}
 
 </style>
