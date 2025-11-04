@@ -1,0 +1,1 @@
+// FOR TEST API GET LOTTO : https://lotto.api.rayriffy.com/latest
