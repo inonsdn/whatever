@@ -5,7 +5,7 @@
                 <input class="inputFilter" type="text" v-model="data.filterTodoText" placeholder="Filter" @input="onFilterType"/>
             </div>
             <div>
-                <NButton>Add</NButton>
+                <NButton @click="onAddButtonClicked">Add</NButton>
                 <NButton>Remove</NButton>
             </div>
         </div>
@@ -46,6 +46,7 @@
     const emit = defineEmits<{
         (e: 'onMarkDone_cb', itemId: number): void
         (e: 'onMarkUndone_cb', itemId: number): void
+        (e: 'onAddClicked', todo: string): void
     }>()
 
     // LIFE CYCLE
@@ -92,6 +93,10 @@
         data.value.delayUpdateTimerId = setTimeout(() => {
             updateFilteredItems(filteredText)
         }, 200)
+    }
+
+    function onAddButtonClicked() {
+        emit('onAddClicked', 'test to create by clicked')
     }
 
 </script>
