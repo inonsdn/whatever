@@ -34,37 +34,39 @@
     onMounted(() => {
         // TODO: make to be setup
         // map getters, state, action
-        const todoIdToItem = getAllTodoList()
         data.value.todoIdToDataObj = todoIdToItem
     })
 
+    const todoIdToItem = computed(() => store.getters['todoList/getAll'])
     const items = computed(() => Object.values(data.value.todoIdToDataObj))
 
     function onMarkDone_cb (itemId: number) {
-        cache?.todoList?.update(itemId, {state: TODO_STATE_DONE}).then(() => {
-            const oldValue = data.value.todoIdToDataObj[itemId]
-            data.value.todoIdToDataObj = {
-                ...data.value.todoIdToDataObj,
-                [itemId]: {
-                    ...oldValue,
-                    state: TODO_STATE_DONE
-                }
-            }
-        })
+        store.dispatch('todoList/updateTodoState', {itemId, TODO_STATE_DONE})
+        // cache?.todoList?.update(itemId, {state: TODO_STATE_DONE}).then(() => {
+        //     const oldValue = data.value.todoIdToDataObj[itemId]
+        //     data.value.todoIdToDataObj = {
+        //         ...data.value.todoIdToDataObj,
+        //         [itemId]: {
+        //             ...oldValue,
+        //             state: TODO_STATE_DONE
+        //         }
+        //     }
+        // })
     }
 
     function onMarkUndone_cb (itemId: number) {
         console.log('===== got event', itemId)
-        cache?.todoList?.update(itemId, {state: TODO_STATE_NEW}).then(() => {
-            const oldValue = data.value.todoIdToDataObj[itemId]
-            data.value.todoIdToDataObj = {
-                ...data.value.todoIdToDataObj,
-                [itemId]: {
-                    ...oldValue,
-                    state: TODO_STATE_NEW
-                }
-            }
-        })
+        store.dispatch('todoList/updateTodoState', {itemId, TODO_STATE_NEW})
+        // cache?.todoList?.update(itemId, {state: TODO_STATE_NEW}).then(() => {
+        //     const oldValue = data.value.todoIdToDataObj[itemId]
+        //     data.value.todoIdToDataObj = {
+        //         ...data.value.todoIdToDataObj,
+        //         [itemId]: {
+        //             ...oldValue,
+        //             state: TODO_STATE_NEW
+        //         }
+        //     }
+        // })
     }
 
     function onAddNewTodo(todo: string) {

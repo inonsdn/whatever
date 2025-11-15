@@ -16,11 +16,21 @@ export class CacheHandler {
 
     initialize () {
         this.constructIndexDBRepositories()
+        this.updateDataToLastRevision()
     }
 
     constructIndexDBRepositories () {
         this.todoList = new TodoListRepository(db)
     }
+
+    updateDataToLastRevision () {
+        // get last revision that client knows from local
+        // get from server
+        // update to local if needed
+        // update to store
+        this.updateStores()
+    }
+
 
     async createNewTodoList(item: Partial<TodoListItem>) {
         const todoId = await this.todoList?.add(item)
@@ -33,9 +43,16 @@ export class CacheHandler {
     async updateTodoListStore() {
         console.log('update todo')
         const todoList = await this.todoList?.getAll()
-        console.log('get todoList ', todoList)
-        this.store.dispatch('todoList/updateTodoListItems', todoList)
-        console.log('done dispatch ', todoList)
+        const modifiedTodoList = todoList?.map((todoObj) => {
+            return {
+                id: todoObj.id,
+                text: todoObj.todo,
+                state: todoObj.state
+            }
+        })
+        console.log('get todoList ', modifiedTodoList)
+        this.store.dispatch('todoList/updateTodoListItems', modifiedTodoList)
+        console.log('done dispatch ', modifiedTodoList)
     }
 }
 
