@@ -54,6 +54,10 @@ export class CacheHandler {
         this.store.dispatch('todoList/updateTodoListItems', modifiedTodoList)
         console.log('done dispatch ', modifiedTodoList)
     }
+
+    callApi(name: string) {
+        
+    }
 }
 
 export async function createCacheHandler() {
