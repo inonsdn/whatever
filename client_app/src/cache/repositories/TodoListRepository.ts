@@ -8,7 +8,7 @@ export interface TodoListCreateItem {
 
 export interface TodoListItem {
     id: number
-    todo: string
+    text: string
     state: string
 }
 

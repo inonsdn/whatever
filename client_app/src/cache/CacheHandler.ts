@@ -36,7 +36,10 @@ export class CacheHandler {
 
 
     async createNewTodoList(item: Partial<TodoListItem>) {
+        console.log('[CacheHandler]: create new todo')
         const todoId = await this.todoList?.add(item)
+        console.log('[CacheHandler]: update store')
+        await this.updateTodoListStore()
     }
 
     async updateStores() {
@@ -49,7 +52,7 @@ export class CacheHandler {
         const modifiedTodoList = todoList?.map((todoObj) => {
             return {
                 id: todoObj.id,
-                text: todoObj.todo,
+                text: todoObj.text,
                 state: todoObj.state
             }
         })

@@ -44,7 +44,7 @@
         if (state.value === TODO_STATE_DONE) {
             stateShowText = '[/]'
         }
-        return `- ${stateShowText} ${text.value} ${data.value.testText}`
+        return `- ${stateShowText} ${text.value}`
     })
 
     const markButtonText = computed(() => {

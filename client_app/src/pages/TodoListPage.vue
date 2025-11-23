@@ -20,8 +20,6 @@
     import { computed, onMounted, ref } from 'vue'
     import { useCache } from '@/cache/injectPlugins'
     import { useStore, mapGetters } from 'vuex'
-    import BaseDialog from '@/components/BaseDialog.vue'
-    import NTextInput from '@/components/generic/NTextInput.vue'
     import AddTodoListDialog from '@/components/AddTodoListDialog.vue'
 
     // mounted to get value from local storage
@@ -44,12 +42,15 @@
     onMounted(async () => {
         // TODO: make to be setup
         // map getters, state, action
-        data.value.todoIdToDataObj = todoIdToItem
-        // console.log(await cache.getLottoForTest())
+        // data.value.todoIdToDataObj = todoIdToItem
+        console.log(await cache?.getLottoForTest())
     })
 
     const todoIdToItem = computed(() => store.getters['todoList/getAll'])
-    const items = computed(() => Object.values(data.value.todoIdToDataObj))
+    const items = computed(() => {
+        console.log('COMPUTE', todoIdToItem.value, Object.values(todoIdToItem.value))
+        return Object.values(todoIdToItem.value)
+    })
     const isShowDialog = computed(() => data.value.showDialog)
 
     function onMarkDone_cb (itemId: number) {
@@ -61,26 +62,23 @@
         store.dispatch('todoList/updateTodoState', {itemId, TODO_STATE_NEW})
     }
 
-    function testInputUpdate(text: string) {
-
-    }
-
-    function onAddNewTodo(todo: string) {
+    function onAddNewTodo() {
         data.value.showDialog = true
-        console.log('==== data', data)
-        // const createObj = {
-        //     todo: todo,
-        //     state: TODO_STATE_NEW,
-        // }
-        // cache?.todoList?.add(createObj).then(() => {
-        //     console.log('Done')
-        // })
     }
 
-    function onSaveTodo(formData) {
+    async function onSaveTodo(formData) {
         data.value.showDialog = false
         console.log('Page save got ', formData)
-
+        const newTodo = {
+            state: TODO_STATE_NEW,
+            text: formData.todo
+        }
+        try {
+            await cache?.createNewTodoList(newTodo)
+        } catch {
+            console.log('Found error')
+        }
+        console.log('Page save got ', newTodo)
     }
 
 </script>

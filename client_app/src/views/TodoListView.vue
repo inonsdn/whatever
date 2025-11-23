@@ -9,13 +9,18 @@
                 <NButton>Remove</NButton>
             </div>
         </div>
-        <TodoItem v-for="item in data.filteredTodoItems"
-            :key="item.id"
-            :id="item.id"
-            :text="item.text"
-            :state="item.state"
-            @mark-done_cb="markDoneClicked"
-            @mark-undone_cb="markUndoneClicked"/>
+        <div v-if="hasItems">
+            <TodoItem v-for="item in data.filteredTodoItems"
+                :key="item.id"
+                :id="item.id"
+                :text="item.text"
+                :state="item.state"
+                @mark-done_cb="markDoneClicked"
+                @mark-undone_cb="markUndoneClicked"/>
+        </div>
+        <div v-if="!hasItems">
+            <p>No todo</p>
+        </div>
     </div>
 </template>
 
@@ -23,7 +28,7 @@
 
     import TodoItem from '@/components/TodoItem.vue';
     import type {TodoListItem} from '@/types/TodoListInterface'
-    import { onMounted, ref, toRefs, watch } from 'vue';
+    import { computed, onMounted, ref, toRefs, watch } from 'vue';
     import NButton from '@/components/generic/NButton.vue';
 
     // define props for this view
@@ -46,8 +51,10 @@
     const emit = defineEmits<{
         (e: 'onMarkDone_cb', itemId: number): void
         (e: 'onMarkUndone_cb', itemId: number): void
-        (e: 'onAddClicked', todo: string): void
+        (e: 'onAddClicked'): void
     }>()
+
+    const hasItems = computed(() => data.value.filteredTodoItems.length > 0)
 
     // LIFE CYCLE
     watch(values, (newVal, oldVal) => {
@@ -96,7 +103,7 @@
     }
 
     function onAddButtonClicked() {
-        emit('onAddClicked', 'test to create by clicked')
+        emit('onAddClicked')
     }
 
 </script>

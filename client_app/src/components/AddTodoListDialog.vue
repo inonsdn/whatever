@@ -3,7 +3,7 @@
     <BaseDialog :model-value="isShowDialog">
         <div class="add-dialog">
             <NTextInput name="Todo" @on-input-update="onTodoUpdate"/>
-            <NTextInput name="State" @on-input-update="onStateUpdate"/>
+            <!-- <NTextInput name="State" @on-input-update="onStateUpdate"/> -->
             <NButton
                 @click="onSave">
                 <p>Save</p>
