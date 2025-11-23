@@ -3,15 +3,18 @@ import { TodoListRepository } from './repositories/TodoListRepository'
 import type { TodoListItem } from '@/types/TodoListInterface'
 import { Store } from 'vuex'
 import { store } from '@/stores'
+import ApiHandler from '@/utils/ApiHandler'
 
 export class CacheHandler {
     
     public todoList: TodoListRepository | null
     private store: Store<any>
+    private apiHandler: ApiHandler
 
     constructor(store: Store<any>) {
         this.todoList = null
         this.store = store
+        this.apiHandler = new ApiHandler()
     }
 
     initialize () {
@@ -55,8 +58,12 @@ export class CacheHandler {
         console.log('done dispatch ', modifiedTodoList)
     }
 
-    callApi(name: string) {
-        
+    async callApi(name: string) {
+        return await this.apiHandler.callApi(name)
+    }
+
+    async getLottoForTest() {
+        return await this.apiHandler.getTestDataApi()
     }
 }
 

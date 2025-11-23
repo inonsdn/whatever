@@ -18,7 +18,7 @@
     import type {TodoListItem} from '@/types/TodoListInterface'
     import {TODO_STATE_NEW, TODO_STATE_DONE} from '@/types/TodoListInterface'
     import { computed, onMounted, ref } from 'vue'
-    import { useCache } from '@/cache/useCache'
+    import { useCache } from '@/cache/injectPlugins'
     import { useStore, mapGetters } from 'vuex'
     import BaseDialog from '@/components/BaseDialog.vue'
     import NTextInput from '@/components/generic/NTextInput.vue'
@@ -41,10 +41,11 @@
         getAllTodoList: 'todoList/getAll'
     })
 
-    onMounted(() => {
+    onMounted(async () => {
         // TODO: make to be setup
         // map getters, state, action
         data.value.todoIdToDataObj = todoIdToItem
+        // console.log(await cache.getLottoForTest())
     })
 
     const todoIdToItem = computed(() => store.getters['todoList/getAll'])
@@ -79,6 +80,7 @@
     function onSaveTodo(formData) {
         data.value.showDialog = false
         console.log('Page save got ', formData)
+
     }
 
 </script>
