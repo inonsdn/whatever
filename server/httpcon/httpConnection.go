@@ -6,16 +6,21 @@ import (
 )
 
 type HttpConnection struct {
-	reader  *http.Request
-	writer  http.ResponseWriter
 	channel chan int
-	path    []PathHandler
+	path    []Path
 }
 
-func InitPath(h *HttpConnection, pathHandler PathHandler) {
-	http.HandleFunc("/", pathHandler.Execute)
-	h.path = append(h.path, pathHandler)
+func InitPathFromConfig(h *HttpConnection, paths []Path) {
+	for _, path := range paths {
+		http.HandleFunc(path.Name, path.Callback)
+		h.path = append(h.path, path)
+	}
 }
+
+// func InitPath(h *HttpConnection, pathHandler PathHandler) {
+// 	http.HandleFunc(pathHandler.GetPathName(), pathHandler.Execute)
+// 	h.path = append(h.path, pathHandler)
+// }
 
 func (h *HttpConnection) Run() error {
 	err := http.ListenAndServe(":8080", nil)
@@ -26,6 +31,7 @@ func (h *HttpConnection) Run() error {
 }
 
 func (h *HttpConnection) RunForever() {
+	fmt.Printf("Running and waiting\n")
 	err := h.Run()
 	if err != nil {
 		fmt.Println("Got error while running, stop")
@@ -36,5 +42,7 @@ func (h *HttpConnection) RunForever() {
 }
 
 func (h *HttpConnection) WaitStatus() int {
-	return <-h.channel
+	status := <-h.channel
+	fmt.Printf("Running got status: %d\n", status)
+	return status
 }
